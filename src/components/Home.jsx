@@ -1,23 +1,22 @@
 import React,{Component} from 'react'
-import axios from 'axios';
 import {Link} from 'react-router-dom';
 import Image from '../assets/img/theme/team-4-800x800.jpg'
+import {connect} from 'react-redux';
 
 class Home extends Component{
-    state={
-        posts:[]
-    }
+   
 componentDidMount(){
-axios.get('https://jsonplaceholder.typicode.com/posts').then(
-    res=>{
-        this.setState({posts:res.data.slice(0,10)})
-    }
-)
+// axios.get('https://jsonplaceholder.typicode.com/posts').then(
+//     res=>{
+//         this.setState({posts:res.data.slice(0,10)})
+//     }
+console.log()
+
 
 }    
 
 render(){
-    const {posts}=this.state
+    const {posts}=this.props
     const postList=posts.length ? (posts.map(post=>{
         return (
             <div key={post.id} className="shadow-lg mb-5 p-3 container" style={{width:"20%"}}>
@@ -44,5 +43,11 @@ render(){
 }
 }
 
+// get posts from store
+const mapStateToProps = (state) => {
+    return {
+        posts: state.posts
+    }
+}
 
-export default Home;
+export default connect(mapStateToProps)(Home);
